@@ -418,17 +418,19 @@ export function TournamentPairings({
 
             {/* Search Bar */}
             {isCurrentRoundActive && (
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search player name..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
-                />
+              <div className="flex flex-col gap-2">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search player name..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
                 {searchQuery && highlightedBatch && (
-                  <div className="absolute top-full left-0 mt-2 bg-blue-50 border border-blue-200 rounded-md p-2 text-sm text-blue-900 whitespace-nowrap">
-                    Found on Board {highlightedBatch}
+                  <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-md p-2 text-sm text-blue-900 dark:text-blue-100">
+                    Found on Board {highlightedBatch} - Scroll to view
                   </div>
                 )}
               </div>
@@ -448,7 +450,7 @@ export function TournamentPairings({
           </div>
 
           {/* Matches by Batch */}
-          <div className="p-6 space-y-6">
+          <div className="space-y-6 px-4 sm:px-6">
             {Array.from({ length: Math.max(...currentRoundData.matches.map(m => m.batch), 0) }).map((_, batchIdx) => {
               const batchNumber = batchIdx + 1;
               const batchMatches = currentRoundData.matches.filter(m => m.batch === batchNumber);
@@ -459,10 +461,10 @@ export function TournamentPairings({
                   key={batchNumber}
                   ref={isHighlighted ? batchRef : null}
                   data-batch={batchNumber}
-                  className={`transition-all ${isHighlighted ? 'ring-2 ring-blue-500 rounded-lg p-4 bg-blue-50' : ''}`}
+                  className={`transition-all rounded-lg p-4 space-y-3 ${isHighlighted ? 'ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-950/30' : 'bg-card'}`}
                 >
-                  <h4 className="font-semibold mb-3">Batch {batchNumber}</h4>
-                  <div className="space-y-2">
+                  <h4 className="font-semibold text-base">Batch {batchNumber}</h4>
+                  <div className="space-y-3">
                     {batchMatches.map((match, idx) => {
                       const whitePlayer = tournament.players.find(p => p.id === match.whiteId);
                       const blackPlayer = tournament.players.find(p => p.id === match.blackId);
@@ -470,26 +472,26 @@ export function TournamentPairings({
                       return (
                         <div
                           key={idx}
-                          className="flex items-center gap-3 p-3 bg-muted rounded-md"
+                          className="bg-muted rounded-md p-3 space-y-3 sm:space-y-0 sm:flex sm:items-center sm:gap-3"
                         >
-                          <span className="text-sm font-medium min-w-12">
-                            B{match.batch}
-                          </span>
-                          <div className="flex-1 flex items-center gap-4">
-                            <div className="flex-1">
+                          <div className="flex-shrink-0">
+                            <span className="text-sm font-medium text-muted-foreground">
+                              Board {match.board}
+                            </span>
+                          </div>
+                          <div className="flex-1 space-y-2 sm:space-y-0">
+                            <div className="space-y-1">
                               <p className="text-sm">
                                 <span className="font-medium">{whitePlayer?.name}</span>
-                                <span className="text-xs text-muted-foreground ml-2">
-                                  (W)
+                                <span className="text-xs text-muted-foreground ml-1">
+                                  (White)
                                 </span>
                               </p>
-                            </div>
-                            <span className="text-xs text-muted-foreground">vs</span>
-                            <div className="flex-1">
+                              <p className="text-xs text-muted-foreground">vs</p>
                               <p className="text-sm">
                                 <span className="font-medium">{blackPlayer?.name}</span>
-                                <span className="text-xs text-muted-foreground ml-2">
-                                  (B)
+                                <span className="text-xs text-muted-foreground ml-1">
+                                  (Black)
                                 </span>
                               </p>
                             </div>
@@ -499,13 +501,13 @@ export function TournamentPairings({
                             onValueChange={(val) => handleRecordResult(currentRoundData.matches.indexOf(match), val)}
                             disabled={!isCurrentRoundActive}
                           >
-                            <SelectTrigger className="w-24">
+                            <SelectTrigger className="w-full sm:w-28">
                               <SelectValue placeholder="Result" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="1-0">1-0</SelectItem>
-                              <SelectItem value="0-1">0-1</SelectItem>
-                              <SelectItem value="1/2-1/2">½-½</SelectItem>
+                              <SelectItem value="1-0">White Wins</SelectItem>
+                              <SelectItem value="0-1">Black Wins</SelectItem>
+                              <SelectItem value="1/2-1/2">Draw</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
