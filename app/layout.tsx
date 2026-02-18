@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import Link from 'next/link'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
@@ -10,6 +10,11 @@ import './globals.css'
 const geist = Geist({ subsets: ["latin"] });
 const geistMono = Geist_Mono({ subsets: ["latin"] });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export const metadata: Metadata = {
   title: 'Swiss Chess Tournament Manager',
   description: 'Professional Swiss system tournament pairing engine with live standings, Excel import, and PDF export',
@@ -17,7 +22,6 @@ export const metadata: Metadata = {
   authors: [{ name: 'Tournament Manager' }],
   creator: 'v0',
   generator: 'v0.app',
-  viewport: 'width=device-width, initial-scale=1',
   icons: {
     icon: [
       {
