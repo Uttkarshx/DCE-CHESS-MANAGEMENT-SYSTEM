@@ -58,8 +58,8 @@ export default function TournamentPage() {
 
   if (error || !tournament) {
     return (
-      <div className="min-h-screen bg-background p-6">
-        <div className="max-w-6xl mx-auto">
+      <div className="min-h-screen bg-background">
+        <div className="max-w-5xl mx-auto px-4 py-6 sm:py-8">
           <Button
             variant="outline"
             onClick={() => router.push('/tournaments')}
@@ -79,11 +79,11 @@ export default function TournamentPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-background">
+      <div className="max-w-7xl mx-auto px-4 py-6 sm:py-8">
         {/* Header */}
-        <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3 sm:gap-4 w-full">
             <Button
               variant="outline"
               size="sm"
@@ -91,11 +91,11 @@ export default function TournamentPage() {
               className="gap-2"
             >
               <ArrowLeft className="h-4 w-4" />
-              Back
+              <span className="hidden sm:inline">Back</span>
             </Button>
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight">{tournament.name}</h1>
-              <p className="text-sm text-muted-foreground mt-1">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight truncate">{tournament.name}</h1>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                 Round {tournament.currentRound} of {tournament.totalRounds}
               </p>
             </div>
@@ -104,11 +104,11 @@ export default function TournamentPage() {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="mb-6">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="players">Players</TabsTrigger>
-            <TabsTrigger value="pairings">Pairings</TabsTrigger>
-            <TabsTrigger value="standings">Standings</TabsTrigger>
+          <TabsList className="mb-6 w-full grid grid-cols-2 sm:grid-cols-4">
+            <TabsTrigger value="overview" className="text-xs sm:text-sm">Overview</TabsTrigger>
+            <TabsTrigger value="players" className="text-xs sm:text-sm">Players</TabsTrigger>
+            <TabsTrigger value="pairings" className="text-xs sm:text-sm">Pairings</TabsTrigger>
+            <TabsTrigger value="standings" className="text-xs sm:text-sm">Standings</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">

@@ -51,7 +51,6 @@ export function getTournamentIds(): string[] {
     const ids = localStorage.getItem(TOURNAMENTS_KEY);
     return ids ? JSON.parse(ids) : [];
   } catch (error) {
-    console.error('Failed to get tournament IDs:', error);
     return [];
   }
 }
@@ -77,7 +76,6 @@ export function saveTournament(tournament: Tournament): void {
       localStorage.setItem(TOURNAMENTS_KEY, JSON.stringify(ids));
     }
   } catch (error) {
-    console.error('Failed to save tournament:', error);
     throw new Error('Failed to save tournament to storage');
   }
 }
@@ -93,7 +91,6 @@ export function loadTournament(tournamentId: string): Tournament | null {
     if (!json) return null;
     return deserializeTournament(json);
   } catch (error) {
-    console.error(`Failed to load tournament ${tournamentId}:`, error);
     return null;
   }
 }
@@ -129,7 +126,6 @@ export function deleteTournament(tournamentId: string): void {
     const filtered = ids.filter(id => id !== tournamentId);
     localStorage.setItem(TOURNAMENTS_KEY, JSON.stringify(filtered));
   } catch (error) {
-    console.error(`Failed to delete tournament ${tournamentId}:`, error);
     throw new Error('Failed to delete tournament');
   }
 }
@@ -157,7 +153,6 @@ export function duplicateTournament(tournamentId: string, newName: string): Tour
     saveTournament(duplicate);
     return duplicate;
   } catch (error) {
-    console.error('Failed to duplicate tournament:', error);
     return null;
   }
 }
@@ -178,7 +173,6 @@ export function exportTournamentJSON(tournament: Tournament): void {
     link.click();
     URL.revokeObjectURL(url);
   } catch (error) {
-    console.error('Failed to export tournament:', error);
     throw new Error('Failed to export tournament');
   }
 }
@@ -220,7 +214,6 @@ export function exportAllTournamentsJSON(): void {
     link.click();
     URL.revokeObjectURL(url);
   } catch (error) {
-    console.error('Failed to export all tournaments:', error);
     throw new Error('Failed to export tournaments backup');
   }
 }
@@ -242,7 +235,7 @@ export function importAllTournamentsJSON(json: string): number {
         saveTournament(tournament);
         imported++;
       } catch (err) {
-        console.error('Failed to import single tournament:', err);
+        // Failed to import single tournament, continue with others
       }
     }
 
@@ -288,6 +281,6 @@ export function clearAllTournaments(): void {
     }
     localStorage.removeItem(TOURNAMENTS_KEY);
   } catch (error) {
-    console.error('Failed to clear all tournaments:', error);
+    // Silent fail on clear
   }
 }

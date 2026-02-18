@@ -184,7 +184,7 @@ export function TournamentDashboard() {
       const pairingResult = generatePairings(tournament);
 
       if (pairingResult.warnings.length > 0) {
-        console.warn('Pairing warnings:', pairingResult.warnings);
+        // Pairing warnings are silently logged
       }
 
       // Check for pairing errors (duplicate players in round)

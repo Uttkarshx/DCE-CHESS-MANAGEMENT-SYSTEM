@@ -97,12 +97,12 @@ export default function TournamentsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-background">
+      <div className="max-w-5xl mx-auto px-4 py-6 sm:py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold tracking-tight mb-2">Tournament Manager</h1>
-          <p className="text-muted-foreground">Create and manage multiple chess tournaments</p>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Tournament Manager</h1>
+          <p className="text-muted-foreground text-sm sm:text-base">Create and manage multiple chess tournaments</p>
         </div>
 
         {/* Error Alert */}
@@ -114,10 +114,10 @@ export default function TournamentsPage() {
         )}
 
         {/* Action Buttons */}
-        <div className="flex gap-3 mb-8">
+        <div className="flex flex-col sm:flex-row gap-3 mb-8">
           <Button
             onClick={() => setShowCreationDialog(true)}
-            className="gap-2"
+            className="gap-2 w-full sm:w-auto"
             size="lg"
           >
             <Plus className="h-5 w-5" />
@@ -127,7 +127,7 @@ export default function TournamentsPage() {
             <Button
               onClick={handleExportAll}
               variant="outline"
-              className="gap-2"
+              className="gap-2 w-full sm:w-auto"
               size="lg"
             >
               <Download className="h-5 w-5" />
@@ -138,48 +138,48 @@ export default function TournamentsPage() {
 
         {/* Tournaments Grid */}
         {tournaments.length === 0 ? (
-          <Card className="p-12">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 sm:p-12">
             <div className="text-center">
-              <p className="text-muted-foreground mb-4">No tournaments yet</p>
+              <p className="text-muted-foreground mb-6">No tournaments yet</p>
               <Button onClick={() => setShowCreationDialog(true)} size="lg">
                 Create Your First Tournament
               </Button>
             </div>
-          </Card>
+          </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {tournaments.map((tournament) => {
               const stats = getTournamentStats(tournament);
               const createdDate = new Date(tournament.createdAt).toLocaleDateString();
 
               return (
-                <Card
+                <div
                   key={tournament.id}
-                  className="p-6 flex flex-col gap-4 hover:shadow-lg transition-shadow"
+                  className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5 sm:p-6 flex flex-col gap-4 hover:scale-[1.01] hover:border-zinc-700 hover:shadow-lg transition-all duration-200"
                 >
                   {/* Title */}
                   <div>
-                    <h3 className="text-xl font-semibold truncate">{tournament.name}</h3>
-                    <p className="text-sm text-muted-foreground">Created {createdDate}</p>
+                    <h3 className="text-lg sm:text-xl font-semibold truncate">{tournament.name}</h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground mt-1">Created {createdDate}</p>
                   </div>
 
                   {/* Stats Grid */}
-                  <div className="grid grid-cols-2 gap-3 py-3 border-y">
+                  <div className="grid grid-cols-2 gap-3 py-4 border-y border-zinc-800">
                     <div>
-                      <p className="text-2xl font-bold">{stats.totalPlayers}</p>
-                      <p className="text-xs text-muted-foreground">Players</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-white">{stats.totalPlayers}</p>
+                      <p className="text-xs text-muted-foreground mt-1">Players</p>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold">{tournament.totalBoards}</p>
-                      <p className="text-xs text-muted-foreground">Boards</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-white">{tournament.totalBoards}</p>
+                      <p className="text-xs text-muted-foreground mt-1">Boards</p>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold">{tournament.currentRound}</p>
-                      <p className="text-xs text-muted-foreground">Round</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-white">{tournament.currentRound}</p>
+                      <p className="text-xs text-muted-foreground mt-1">Round</p>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold">{tournament.totalRounds}</p>
-                      <p className="text-xs text-muted-foreground">Total Rounds</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-white">{tournament.totalRounds}</p>
+                      <p className="text-xs text-muted-foreground mt-1">Total</p>
                     </div>
                   </div>
 
@@ -191,17 +191,17 @@ export default function TournamentsPage() {
                           ? 'bg-green-500'
                           : tournament.status === 'in-progress'
                             ? 'bg-blue-500'
-                            : 'bg-gray-400'
+                            : 'bg-zinc-500'
                       }`}
                     />
-                    <span className="text-sm font-medium capitalize">{tournament.status}</span>
+                    <span className="text-xs sm:text-sm font-medium capitalize text-muted-foreground">{tournament.status}</span>
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-2 pt-2">
+                  <div className="flex flex-col sm:flex-row gap-2 pt-3">
                     <Button
                       onClick={() => handleOpenTournament(tournament.id)}
-                      className="flex-1"
+                      className="flex-1 w-full sm:w-auto text-sm"
                       size="sm"
                     >
                       Open
@@ -213,7 +213,7 @@ export default function TournamentsPage() {
                       }}
                       variant="outline"
                       size="sm"
-                      className="p-2"
+                      className="w-full sm:w-auto p-2"
                       title="Duplicate"
                     >
                       <Copy className="h-4 w-4" />
@@ -228,7 +228,7 @@ export default function TournamentsPage() {
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
-                </Card>
+                </div>
               );
             })}
           </div>

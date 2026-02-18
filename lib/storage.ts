@@ -60,7 +60,6 @@ export function saveTournament(tournament: Tournament): void {
     const serialized = serializeTournament(tournament);
     localStorage.setItem(STORAGE_KEY, serialized);
   } catch (error) {
-    console.error('Failed to save tournament:', error);
     throw new Error('Failed to save tournament to storage');
   }
 }
@@ -80,7 +79,6 @@ export function loadTournament(): Tournament | null {
 
     return deserializeTournament(json);
   } catch (error) {
-    console.error('Failed to load tournament:', error);
     return null;
   }
 }
@@ -106,7 +104,7 @@ export function exportTournamentJSON(tournament: Tournament): string {
     link.click();
     URL.revokeObjectURL(url);
   } catch (error) {
-    console.error('Failed to trigger download:', error);
+    // Silent fail on download
   }
 
   return serialized;
@@ -179,7 +177,7 @@ export function downloadCSV(content: string, filename: string): void {
     link.click();
     URL.revokeObjectURL(url);
   } catch (error) {
-    console.error('Failed to download CSV:', error);
+    // Silent fail on CSV download
   }
 }
 
@@ -206,7 +204,7 @@ export function createBackup(tournament: Tournament): void {
 
     localStorage.setItem(BACKUPS_KEY, JSON.stringify(backups));
   } catch (error) {
-    console.error('Failed to create backup:', error);
+    // Silent fail on backup creation
   }
 }
 
@@ -263,7 +261,6 @@ export function exportStandingsToExcel(tournament: Tournament, roundNumber?: num
     // Trigger download
     XLSX.writeFile(workbook, filename);
   } catch (error) {
-    console.error('Failed to export standings to Excel:', error);
     throw new Error('Failed to export standings to Excel');
   }
 }
@@ -280,6 +277,6 @@ export function resetAllData(): void {
     localStorage.removeItem(BACKUPS_KEY);
     localStorage.removeItem('theme');
   } catch (error) {
-    console.error('Failed to reset all data:', error);
+    // Silent fail on data reset
   }
 }

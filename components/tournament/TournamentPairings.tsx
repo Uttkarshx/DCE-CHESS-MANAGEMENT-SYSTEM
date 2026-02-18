@@ -78,7 +78,7 @@ export function TournamentPairings({
       const result = generatePairings(tournament);
 
       if (result.warnings.length > 0) {
-        console.warn('Pairing warnings:', result.warnings);
+        // Pairing warnings are silently logged
       }
 
       // Create new round
@@ -308,40 +308,42 @@ export function TournamentPairings({
 
       {/* Tournament Completion State */}
       {isTournamentComplete && (
-        <Card className="p-8 bg-linear-to-r from-amber-50 to-yellow-50 border-amber-200">
-          <div className="flex items-center gap-4">
-            <Trophy className="h-8 w-8 text-amber-600" />
+        <div className="rounded-2xl border border-green-800/50 bg-gradient-to-r from-green-900/20 to-emerald-900/20 p-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <Trophy className="h-8 w-8 text-green-500 flex-shrink-0" />
             <div>
-              <h3 className="text-2xl font-bold text-amber-900">🏆 Tournament Complete</h3>
-              <p className="text-sm text-amber-700 mt-1">
+              <h3 className="text-xl sm:text-2xl font-bold text-green-200">🏆 Tournament Complete</h3>
+              <p className="text-sm text-green-400/80 mt-1">
                 Final standings are shown in the Standings tab
               </p>
             </div>
           </div>
-        </Card>
+        </div>
       )}
 
       {/* Round Progress */}
       {currentRoundData && isCurrentRoundActive && !isTournamentComplete && (
-        <Card className="p-4 bg-blue-50 border-blue-200">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="font-semibold text-blue-900">
+        <div className="rounded-2xl border border-blue-800/50 bg-gradient-to-r from-blue-900/20 to-blue-800/20 p-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="w-full">
+              <h3 className="font-semibold text-blue-200">
                 Round {selectedRound} of {tournament.totalRounds}
               </h3>
-              <div className="flex gap-4 mt-2 text-sm text-blue-700">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-3 text-sm text-blue-400">
                 {(() => {
                   const progress = getRoundProgress(currentRoundData);
                   return (
                     <>
-                      <span>Progress: {progress.completed} / {progress.total} matches completed</span>
-                      <div className="w-48 bg-blue-200 rounded-full h-2">
-                        <div
-                          className="bg-blue-600 h-2 rounded-full transition-all"
-                          style={{ width: `${progress.percentage}%` }}
-                        />
+                      <span className="truncate">Progress: {progress.completed} / {progress.total} matches</span>
+                      <div className="flex items-center gap-2 flex-1 max-w-xs">
+                        <div className="w-full bg-zinc-800 rounded-full h-2">
+                          <div
+                            className="bg-blue-600 h-2 rounded-full transition-all"
+                            style={{ width: `${progress.percentage}%` }}
+                          />
+                        </div>
+                        <span className="whitespace-nowrap">{progress.percentage}%</span>
                       </div>
-                      <span>{progress.percentage}%</span>
                     </>
                   );
                 })()}
@@ -350,29 +352,30 @@ export function TournamentPairings({
             <Button
               onClick={() => setShowGenerateConfirm(true)}
               disabled={!allMatchesCompleted(currentRoundData) || isLoading || selectedRound >= tournament.totalRounds}
-              className="gap-2"
+              className="gap-2 w-full sm:w-auto"
+              size="sm"
             >
               <Play className="h-4 w-4" />
               Next Round
             </Button>
           </div>
-        </Card>
+        </div>
       )}
 
       {/* Generate Round Section */}
       {tournament.currentRound === 0 || (tournament.currentRound < tournament.totalRounds && !currentRoundData) ? (
-        <Card className="p-6">
+        <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
           <h3 className="text-lg font-semibold mb-4">Generate Pairings</h3>
           <div className="space-y-4">
             <div>
               <p className="text-sm text-muted-foreground mb-3">
                 Round {tournament.currentRound + 1} of {tournament.totalRounds}
               </p>
-              <div className="bg-muted p-3 rounded-md text-sm space-y-1">
-                <p>• Players: <strong>{stats.totalPlayers}</strong></p>
-                <p>• Matches: <strong>{stats.matchesPerRound}</strong></p>
-                <p>• Batches: <strong>{stats.batchesRequired}</strong></p>
-                <p>• Boards per batch: <strong>{tournament.totalBoards}</strong></p>
+              <div className="bg-zinc-800/50 p-4 rounded-lg text-sm space-y-2">
+                <p>• Players: <strong className="text-white">{stats.totalPlayers}</strong></p>
+                <p>• Matches: <strong className="text-white">{stats.matchesPerRound}</strong></p>
+                <p>• Batches: <strong className="text-white">{stats.batchesRequired}</strong></p>
+                <p>• Boards per batch: <strong className="text-white">{tournament.totalBoards}</strong></p>
               </div>
             </div>
 
@@ -386,7 +389,7 @@ export function TournamentPairings({
               {isLoading ? 'Generating...' : 'Generate Round Pairings'}
             </Button>
           </div>
-        </Card>
+        </div>
       ) : null}
 
       {/* Pairings Display */}

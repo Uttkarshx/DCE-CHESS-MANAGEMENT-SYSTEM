@@ -13,8 +13,8 @@ export function TournamentStandings({ tournament }: TournamentStandingsProps) {
   const { ranked } = rankPlayers(tournament.players);
 
   return (
-    <Card>
-      <div className="p-6 border-b">
+    <div className="rounded-2xl border border-zinc-800 bg-zinc-900">
+      <div className="p-6 border-b border-zinc-800">
         <h3 className="text-lg font-semibold">Tournament Standings</h3>
         <p className="text-sm text-muted-foreground mt-1">
           After Round {tournament.currentRound}
@@ -68,7 +68,7 @@ export function TournamentStandings({ tournament }: TournamentStandingsProps) {
 
       {/* Tiebreak Legend */}
       {ranked.length > 0 && (
-        <div className="p-6 border-t bg-muted/50 text-sm space-y-2">
+        <div className="p-6 border-t border-zinc-800 bg-zinc-800/50 text-sm space-y-2">
           <p className="font-medium">Tiebreak Rules:</p>
           <ul className="space-y-1 text-muted-foreground">
             <li>
@@ -83,6 +83,6 @@ export function TournamentStandings({ tournament }: TournamentStandingsProps) {
           </ul>
         </div>
       )}
-    </Card>
+    </div>
   );
 }

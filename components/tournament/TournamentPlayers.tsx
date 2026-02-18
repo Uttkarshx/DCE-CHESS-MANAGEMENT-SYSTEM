@@ -135,7 +135,7 @@ export function TournamentPlayers({
       )}
 
       {/* Import Section */}
-      <Card className="p-6">
+      <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
         <h3 className="text-lg font-semibold mb-4">Import Players</h3>
         {!canEditPlayers && (
           <Alert variant="destructive" className="mb-4">
@@ -184,11 +184,11 @@ export function TournamentPlayers({
             </Button>
           </div>
         </div>
-      </Card>
+      </div>
 
       {/* Players List */}
-      <Card>
-        <div className="p-6 border-b">
+      <div className="rounded-2xl border border-zinc-800 bg-zinc-900">
+        <div className="p-6 border-b border-zinc-800">
           <h3 className="text-lg font-semibold">
             Players ({tournament.players.length})
           </h3>
@@ -232,7 +232,7 @@ export function TournamentPlayers({
             </Table>
           </div>
         )}
-      </Card>
+      </div>
 
       {/* Add Player Dialog */}
       <Dialog open={showAddPlayer} onOpenChange={setShowAddPlayer}>
