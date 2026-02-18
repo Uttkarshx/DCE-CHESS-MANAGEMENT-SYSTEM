@@ -1,12 +1,25 @@
 /**
  * Performance Test: Swiss Pairing Engine
  * Tests 200 players, 7 rounds
+ * Note: This is a Node.js utility, not used in browser
  */
 
-import { Tournament, Player, TournamentSettings } from './types';
+import { Tournament, Player } from './types';
 import { generatePairings } from './pairingEngine';
 import { recalculateAllStats } from './tiebreaks';
-import { v4 as uuidv4 } from 'uuid';
+
+// Use crypto for browser/Node compatibility
+const uuidv4 = (): string => {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  // Fallback for older environments
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+};
 
 function createTestTournament(playerCount: number): Tournament {
   const players: Player[] = [];
@@ -96,9 +109,5 @@ function testPairingPerformance() {
   console.log('\n✅ Performance test complete!\n');
 }
 
-// Run test
-if (require.main === module) {
-  testPairingPerformance();
-}
-
 export { testPairingPerformance, createTestTournament };
+
