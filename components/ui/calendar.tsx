@@ -29,9 +29,7 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn(
-        'bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent',
-        String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
-        String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
+        'bg-background group/calendar p-3',
         className,
       )}
       captionLayout={captionLayout}
@@ -53,20 +51,20 @@ function Calendar({
         ),
         button_previous: cn(
           buttonVariants({ variant: buttonVariant }),
-          'size-(--cell-size) aria-disabled:opacity-50 p-0 select-none',
+          'size-9 aria-disabled:opacity-50 p-0 select-none',
           defaultClassNames.button_previous,
         ),
         button_next: cn(
           buttonVariants({ variant: buttonVariant }),
-          'size-(--cell-size) aria-disabled:opacity-50 p-0 select-none',
+          'size-9 aria-disabled:opacity-50 p-0 select-none',
           defaultClassNames.button_next,
         ),
         month_caption: cn(
-          'flex items-center justify-center h-(--cell-size) w-full px-(--cell-size)',
+          'flex items-center justify-center h-9 w-full px-2',
           defaultClassNames.month_caption,
         ),
         dropdowns: cn(
-          'w-full flex items-center text-sm font-medium justify-center h-(--cell-size) gap-1.5',
+          'w-full flex items-center text-sm font-medium justify-center h-9 gap-1.5',
           defaultClassNames.dropdowns,
         ),
         dropdown_root: cn(
@@ -92,7 +90,7 @@ function Calendar({
         ),
         week: cn('flex w-full mt-2', defaultClassNames.week),
         week_number_header: cn(
-          'select-none w-(--cell-size)',
+          'select-none w-9',
           defaultClassNames.week_number_header,
         ),
         week_number: cn(
